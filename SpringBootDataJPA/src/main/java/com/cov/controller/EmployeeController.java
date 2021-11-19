@@ -55,23 +55,40 @@ public class EmployeeController {
 		return modelAndView;
 	}
 
+//	@RequestMapping(value = "editEmp", method = RequestMethod.GET)
+//	public ModelAndView editEmp(@RequestParam int id) throws InvalidEmployeeIdException {
+//		Employee empTOEdit = employeeService.findById(id);
+//		ModelAndView modelAndView = new ModelAndView("editEmp", "empToEdit", empTOEdit);
+//		return modelAndView;
+//	}
+//
+//	@RequestMapping(value = "updateEmp", method = RequestMethod.POST)
+//	public ModelAndView updateEditEmployee(@ModelAttribute("empToEdit") Employee employee)
+//			throws InvalidEmployeeIdException {
+//		employeeService.update(employee);
+//		ModelAndView modelAndView = new ModelAndView("redirect:" + "getemps");
+//		return modelAndView;
+//
+//	}
+
 	@RequestMapping(value = "editEmp", method = RequestMethod.GET)
 	public ModelAndView editEmp(@RequestParam int id) throws InvalidEmployeeIdException {
-		Employee empTOEdit = employeeService.findById(id);
-		ModelAndView modelAndView = new ModelAndView("editEmp", "empToEdit", empTOEdit);
-		return modelAndView;
+	Employee empTOEdit = employeeService.findById(id);
+	ModelAndView modelAndView = new ModelAndView("editEmp", "empToEdit", empTOEdit);
+	modelAndView.addObject("departmentService", departmentService);
+	return modelAndView;
 	}
+
+
 
 	@RequestMapping(value = "updateEmp", method = RequestMethod.POST)
-	public ModelAndView updateEditEmployee(@ModelAttribute("empToEdit") Employee employee)
-			throws InvalidEmployeeIdException {
-		employeeService.update(employee);
-		ModelAndView modelAndView = new ModelAndView("redirect:" + "getemps");
-		return modelAndView;
-
+	public ModelAndView updateEditEmp(@ModelAttribute("empToEdit") Employee employee)
+	throws InvalidEmployeeIdException {
+	employeeService.update(employee);
+	ModelAndView modelAndView = new ModelAndView("redirect:" + "getemps");
+	System.out.println("Employee Updated successfully with id : " + employee.getId());
+	return modelAndView;
 	}
-
-
 	@RequestMapping(value = "deleteEmp")
 	public ModelAndView deleteEmp(@RequestParam int id) throws InvalidEmployeeIdException {
 	employeeService.delete(id);

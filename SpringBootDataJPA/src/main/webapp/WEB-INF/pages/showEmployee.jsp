@@ -14,6 +14,7 @@
 		<tr>
 			<th>ID</th>
 			<th>Name</th>
+			<th>Department Name</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
@@ -24,7 +25,7 @@
 		<tr>
 			<td><%=emp.getId()%></td>
 			<td><%=emp.getName()%></td>
-
+ 			<td><%=emp.getDepartment().getName()%></td>
 			<td><a href="editEmp?id=<%=emp.getId()%>">Edit</a></td>
 			<td><a href="deleteEmp?id=<%=emp.getId()%>">Delete</a></td>
 		</tr>

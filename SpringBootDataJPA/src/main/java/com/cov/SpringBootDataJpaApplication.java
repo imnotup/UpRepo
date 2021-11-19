@@ -10,7 +10,7 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class SpringBootDataJpaApplication {
 
 	public static void main(String[] args) {
-		ConfigurableApplicationContext ctxt = SpringApplication.run(SpringBootDataJpaApplication.class, args);
+		 SpringApplication.run(SpringBootDataJpaApplication.class, args);
 
 		
 	}
