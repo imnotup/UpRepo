@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.covalense.repo.EmployeeRepo;
+
 @Entity
 public class Employee {
 	
@@ -61,6 +63,11 @@ public class Employee {
 	public String toString() {
 		return "Employee [emp_id=" + emp_id + ", empname=" + empname + ", department="
 				+ department + "]";
+	}
+
+	public static EmployeeRepo findById(int id) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
