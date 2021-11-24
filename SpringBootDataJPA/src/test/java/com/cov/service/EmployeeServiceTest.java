@@ -34,9 +34,9 @@ class EmployeeServiceTest {
 	public void init() {
 		MockitoAnnotations.initMocks(this);
 		List<Employee> emp = new ArrayList<>();
-		emp.add(new Employee(1, "pranavi", Department(1, "java")));
-		emp.add(new Employee(2, "jahnavi", Department(2, "crm")));
-		emp.add(new Employee(3, "jyothi", Department(3, "brm")));
+		emp.add(new Employee(1, "Rohit Sharma", Department(1, "Sales")));
+		emp.add(new Employee(2, "Virat Kohli", Department(2, "Developer")));
+		emp.add(new Employee(3, "KL Rahul", Department(3, "Analyst")));
 		List<Employee> personList = employeeService.findAll();
 		when(employeeRepository.findAll()).thenReturn(emp);
 
@@ -58,18 +58,18 @@ class EmployeeServiceTest {
 
 	@Test
 	void testFindById() {
-		Employee empExisting = new Employee(2, "jahnavi", Department(2, "crm"));
+		Employee empExisting = new Employee(2, "Virat Kohli", Department(2, "Developer"));
 		when(employeeRepository.findById(2)).thenReturn(Optional.of(empExisting));
 
 		Employee emp = employeeRepository.findById(2).get();
 		assertNotNull(emp);
-		assertSame(emp.getName(), "jahnavi");
+		assertSame(emp.getName(), "Virat Kohli");
 		assertEquals(emp.getId(), 2);
 	}
 
 	@Test
 	void testSave() {
-		Employee emp = new Employee(4, "gopi", Department(1, "java"));
+		Employee emp = new Employee(4, "Jasprit Bumrah", Department(1, "Sales"));
 		when(employeeRepository.save(emp)).thenReturn(emp);
 
 		assertNotNull(emp);
@@ -78,24 +78,11 @@ class EmployeeServiceTest {
 
 	@Test
 	void testUpdate() {
-		Employee emp = new Employee(3, "navya", Department(3, "CRM"));
+		Employee emp = new Employee(3, "KL Rahul", Department(3, "Analyst"));
 		when(employeeRepository.save(emp)).thenReturn(emp);
 
 		Employee emp1 = employeeRepository.save(emp);
 		assertNotNull(emp1);
-		assertSame(emp1.getName(), "navya");
-// assertEquals(person1.getId(), 3);
-// fail("Not yet implemented");
+		assertSame(emp1.getName(), "KL Rahul");
 	}
-//// @Test
-//// void testDelete() {
-//// Person personExisting = new Person(2, "jahnavi", "varma");
-//// when(personRepository.deleteById(2)).thenReturn(personExisting);
-////
-//// Person person = personRepository.deleteById(2).get(2);
-//// assertNotNull(person);
-//// assertEquals(person.getId(), 2);
-////
-//// }
-
 }

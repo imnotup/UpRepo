@@ -34,9 +34,9 @@ class DepartmentServiceTest {
 	public void init() {
 		MockitoAnnotations.initMocks(this);
 		List<Department> dept = new ArrayList<>();
-		dept.add(new Department(1, "java"));
-		dept.add(new Department(2, "Python"));
-		dept.add(new Department(3, "C"));
+		dept.add(new Department(1, "Sales"));
+		dept.add(new Department(2, "Developer"));
+		dept.add(new Department(3, "Analyst"));
 		List<Department> personList = departmentService.findAll();
 		when(departmentRepository.findAll()).thenReturn(dept);
 
@@ -53,18 +53,18 @@ class DepartmentServiceTest {
 
 	@Test
 	void testFindById() {
-		Department deptExisting = new Department(2, "python");
+		Department deptExisting = new Department(2, "Developer");
 		when(departmentRepository.findById(2)).thenReturn(Optional.of(deptExisting));
 
 		Department dept = departmentRepository.findById(2).get();
 		assertNotNull(dept);
-		assertSame(dept.getName(), "python");
+		assertSame(dept.getName(), "Developer");
 		assertEquals(dept.getId(), 2);
 	}
 
 	@Test
 	void testSave() {
-		Department dept = new Department(4, "C++");
+		Department dept = new Department(4, "Data Engineer");
 		when(departmentRepository.save(dept)).thenReturn(dept);
 
 		assertNotNull(dept);
@@ -73,24 +73,11 @@ class DepartmentServiceTest {
 
 	@Test
 	void testUpdate() {
-		Department dept = new Department(3, "CRM");
+		Department dept = new Department(3, "PHP Developer");
 		when(departmentRepository.save(dept)).thenReturn(dept);
 
 		Department dept1 = departmentRepository.save(dept);
 		assertNotNull(dept1);
-		assertSame(dept1.getName(), "CRM");
-//assertEquals(person1.getId(), 3);
-//fail("Not yet implemented");
+		assertSame(dept1.getName(), "PHP Developer");
 	}
-// @Test
-// void testDelete() {
-// Person personExisting = new Person(2, "jahnavi", "varma");
-// when(personRepository.deleteById(2)).thenReturn(personExisting);
-//
-// Person person = personRepository.deleteById(2).get(2);
-// assertNotNull(person);
-// assertEquals(person.getId(), 2);
-//
-// }
-
 }
