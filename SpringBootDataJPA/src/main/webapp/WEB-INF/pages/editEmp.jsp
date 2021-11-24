@@ -10,7 +10,9 @@
 <meta charset="ISO-8859-1">
 <title>update Employee Page</title>
 </head>
+
 <body>
+
 	<form:form action="updateEmp" modelAttribute="empToEdit">
 		<form:label path="id">ID</form:label>
 		<form:input path="id" readonly="true" />

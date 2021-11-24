@@ -38,7 +38,6 @@
 	<a href="/">Home</a>
 	<br>
 	<br>
-	<a href="regemp">Register Employees</a>
 	<br>
 	<br>
 
