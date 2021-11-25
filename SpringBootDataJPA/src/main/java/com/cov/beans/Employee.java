@@ -5,17 +5,23 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import io.swagger.annotations.ApiModelProperty;
 
 @Entity
 public class Employee {
+	@ApiModelProperty(notes = "auto generated value by the system")
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	int id;
+	@ApiModelProperty(notes = "User generated name")
 	String name;
 
 	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JsonIgnore
 	Department department;
 
 	public Employee(int id, String name, Department department) {
@@ -29,8 +35,8 @@ public class Employee {
 		super();
 	}
 
-	public Employee(String string) {
-		// TODO Auto-generated constructor stub
+	public Employee(int id2, String name2, String string) {
+// TODO Auto-generated constructor stub
 	}
 
 	public int getId() {
