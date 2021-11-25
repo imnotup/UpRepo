@@ -1,65 +1,66 @@
 package com.cov.controller;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.cov.beans.Department;
 import com.cov.exception.InvalidDepartmentIdException;
-import com.cov.exception.InvalidEmployeeIdException;
 import com.cov.service.DepartmentService;
 
-@Controller
-	public class DepartmentController {
-		@Autowired
-		DepartmentService departmentService;
+@RestController
+@RequestMapping("/department")
+public class DepartmentController {
+	static Logger logger = Logger.getLogger(DepartmentController.class);
 
-		@RequestMapping(value = "regdept", method = RequestMethod.GET)
-		public ModelAndView newDepartment() {
-			ModelAndView modelAndView = new ModelAndView("regDepartment", "department", new Department());
-			return modelAndView;
-		}
+	@Autowired
+	DepartmentService departmentService;
 
-		@RequestMapping(value = "regdept", method = RequestMethod.POST)
-		public ModelAndView saveDepartment(@ModelAttribute Department dept) {
-			ModelAndView modelAndView = new ModelAndView("savedDepartment");
-			modelAndView.addObject("dept", departmentService.save(dept));
-			return modelAndView;
-		}
-
-		@RequestMapping("getDepts")
-		public ModelAndView findAll() {
-			ModelAndView modelAndView = new ModelAndView("showdepartment", "depts", departmentService.findAll());
-			return modelAndView;
-		}
-
-		@RequestMapping(value = "editDept", method = RequestMethod.GET)
-		public ModelAndView editEmp(@RequestParam int id) throws InvalidDepartmentIdException, InvalidEmployeeIdException {
-			Department deptToEdit = departmentService.findById(id);
-			ModelAndView modelAndView = new ModelAndView("editDept", "deptToEdit", deptToEdit);
-			return modelAndView;
-		}
-
-		@RequestMapping(value = "updateDept", method = RequestMethod.POST)
-		public ModelAndView updateEditDept(@ModelAttribute("deptToEdit") Department department)
-				throws InvalidDepartmentIdException {
-			departmentService.update(department);
-			ModelAndView modelAndView = new ModelAndView("redirect:" + "getDepts");
-			System.out.println("Employee Updated successfully with id : " + department.getId());
-			return modelAndView;
-		}
-
-		@RequestMapping(value = "deleteDept")
-		public ModelAndView deleteEmp(@RequestParam int id) throws InvalidDepartmentIdException {
-			departmentService.delete(id);
-			ModelAndView modelAndView = new ModelAndView("redirect:" + "getDepts");
-			return modelAndView;
-		}
+	@GetMapping("/{id}")
+	public Department find(@PathVariable int id) throws InvalidDepartmentIdException {
+		logger.info("finding a department with id " + id);
+		Department department = departmentService.findById(id);
+		logger.info("department found with id " + id + " is" + department.getName());
+		return department;
 
 	}
 
+	@GetMapping()
+	public List<Department> findAll() {
+		logger.info("finding all departments");
+		return departmentService.findAll();
 
+	}
+
+	@PostMapping()
+	public Department insertPerson(@RequestBody Department department) {
+		logger.info("inserting a department with " + department.getName());
+
+		return departmentService.save(department);
+
+	}
+
+	@PutMapping()
+	public Department edit(@RequestBody Department department) throws InvalidDepartmentIdException {
+		logger.info("editing a department with " + department.getName());
+
+		return departmentService.update(department);
+	}
+
+	@DeleteMapping("/{id}")
+	public Department delete(@PathVariable int id) throws InvalidDepartmentIdException {
+		logger.info("deleting a department with id " + id);
+
+		return departmentService.delete(id);
+	}
+
+}
